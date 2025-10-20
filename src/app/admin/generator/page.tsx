@@ -167,15 +167,15 @@ export default function GeneratorPage() {
       const generated = LocalAnalyzer.generatePredictions(lotteryType.toLowerCase(), count);
       
       // Convertir a formato compatible
-      const compatiblePredictions: GeneratedPrediction[] = generated.map((pred, index) => ({
+      const compatiblePredictions: GeneratedPrediction[] = generated.map((pred: any, index: number) => ({
         numbers: pred.numbers,
         bonus_number: Math.floor(Math.random() * 26) + 1, // Bonus aleatorio
         score: pred.score,
         analysis: {
-          hot_numbers_used: pred.numbers.filter(n => 
+          hot_numbers_used: pred.numbers.filter((n: number) => 
             statistics?.hot_numbers?.includes(n) || false
           ).length,
-          cold_numbers_used: pred.numbers.filter(n => 
+          cold_numbers_used: pred.numbers.filter((n: number) => 
             statistics?.cold_numbers?.includes(n) || false
           ).length,
           pairs_matched: 0,

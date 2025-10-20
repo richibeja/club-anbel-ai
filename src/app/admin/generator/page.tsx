@@ -628,7 +628,7 @@ export default function GeneratorPage() {
                     </thead>
                     <tbody>
                       {predictions.map((pred, index) => (
-                        <tr key={pred.id} className="hover:bg-gray-50">
+                        <tr key={index} className="hover:bg-gray-50">
                           <td className="border border-gray-300 px-4 py-2 font-semibold">{index + 1}</td>
                           <td className="border border-gray-300 px-4 py-2">
                             <div className="flex gap-1">

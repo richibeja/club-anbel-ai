@@ -485,7 +485,7 @@ export default function GeneratorPage() {
                     <span className="text-sm bg-red-200 text-red-800 px-2 py-1 rounded-full">Más Frecuentes</span>
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {statistics.hot_numbers?.map(num => (
+                    {statistics.hot_numbers?.map((num: number) => (
                       <span key={num} className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold text-lg shadow-md transform hover:scale-110 transition-transform">
                         {num}
                       </span>
@@ -501,7 +501,7 @@ export default function GeneratorPage() {
                     <span className="text-sm bg-blue-200 text-blue-800 px-2 py-1 rounded-full">Menos Frecuentes</span>
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {statistics.cold_numbers?.map(num => (
+                    {statistics.cold_numbers?.map((num: number) => (
                       <span key={num} className="bg-blue-500 text-white px-4 py-2 rounded-lg font-bold text-lg shadow-md transform hover:scale-110 transition-transform">
                         {num}
                       </span>
@@ -517,7 +517,7 @@ export default function GeneratorPage() {
                     <span className="text-sm bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Más Tiempo Sin Salir</span>
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {statistics.overdue_numbers?.map(num => (
+                    {statistics.overdue_numbers?.map((num: number) => (
                       <span key={num} className="bg-yellow-500 text-white px-4 py-2 rounded-lg font-bold text-lg shadow-md transform hover:scale-110 transition-transform">
                         {num}
                       </span>
@@ -632,7 +632,7 @@ export default function GeneratorPage() {
                           <td className="border border-gray-300 px-4 py-2 font-semibold">{index + 1}</td>
                           <td className="border border-gray-300 px-4 py-2">
                             <div className="flex gap-1">
-                              {pred.numbers.map(num => (
+                              {pred.numbers.map((num: number) => (
                                 <span key={num} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">
                                   {num}
                                 </span>

@@ -559,7 +559,7 @@ export default function GeneratorPage() {
                     <span className="text-sm bg-purple-200 text-purple-800 px-2 py-1 rounded-full">Patrones Detectados</span>
                   </h3>
                   <div className="flex flex-wrap gap-3">
-                    {statistics.pair_analysis?.slice(0, 5).map((pair, i) => (
+                    {statistics.pair_analysis?.slice(0, 5).map((pair: any, i: number) => (
                       <div key={i} className="bg-purple-500 text-white px-4 py-2 rounded-lg font-bold text-lg shadow-md transform hover:scale-110 transition-transform">
                         ({pair.pair[0]}, {pair.pair[1]}) - {pair.frequency}x
                       </div>

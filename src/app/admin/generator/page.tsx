@@ -19,7 +19,7 @@ export default function GeneratorPage() {
   const [importResult, setImportResult] = useState<any>(null);
   
   const [historicalCount, setHistoricalCount] = useState(0);
-  const [statistics, setStatistics] = useState<LotteryStatistics | null>(null);
+  const [statistics, setStatistics] = useState<any>(null);
   const [predictions, setPredictions] = useState<GeneratedPrediction[]>([]);
   
   const [loading, setLoading] = useState(false);

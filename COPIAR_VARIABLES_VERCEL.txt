@@ -1,0 +1,39 @@
+========================================
+COPIAR Y PEGAR EN VERCEL - VARIABLE POR VARIABLE
+========================================
+
+INSTRUCCIONES:
+En Vercel verás 2 campos para cada variable:
+- Campo 1 (Name): Copia lo que está después de →
+- Campo 2 (Value): Copia lo que está después de →
+
+========================================
+
+VARIABLE 1:
+Name → NEXT_PUBLIC_FIREBASE_API_KEY
+Value → AIzaSyBISdz4WHVhMHJ60bskjc7igk9Ea1mkxMI
+
+VARIABLE 2:
+Name → NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+Value → super-agent-anbel-club.firebaseapp.com
+
+VARIABLE 3:
+Name → NEXT_PUBLIC_FIREBASE_PROJECT_ID
+Value → super-agent-anbel-club
+
+VARIABLE 4:
+Name → NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+Value → super-agent-anbel-club.firebasestorage.app
+
+VARIABLE 5:
+Name → NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+Value → 789541259111
+
+VARIABLE 6:
+Name → NEXT_PUBLIC_FIREBASE_APP_ID
+Value → 1:789541259111:web:c917c8d37e5ce542cad1c2
+
+========================================
+TOTAL: 6 VARIABLES
+========================================
+

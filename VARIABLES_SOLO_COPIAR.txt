@@ -1,0 +1,81 @@
+========================================
+COPIAR EXACTAMENTE ESTO EN VERCEL
+========================================
+
+En Vercel, para CADA variable verás:
+┌────────────────────────┐
+│ Name:  [           ]   │
+│ Value: [           ]   │
+│        [Add Button]    │
+└────────────────────────┘
+
+========================================
+VARIABLE 1
+========================================
+En el campo "Name" copia esto:
+NEXT_PUBLIC_FIREBASE_API_KEY
+
+En el campo "Value" copia esto:
+AIzaSyBISdz4WHVhMHJ60bskjc7igk9Ea1mkxMI
+
+Haz clic en "Add"
+
+========================================
+VARIABLE 2
+========================================
+En el campo "Name" copia esto:
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+
+En el campo "Value" copia esto:
+super-agent-anbel-club.firebaseapp.com
+
+Haz clic en "Add"
+
+========================================
+VARIABLE 3
+========================================
+En el campo "Name" copia esto:
+NEXT_PUBLIC_FIREBASE_PROJECT_ID
+
+En el campo "Value" copia esto:
+super-agent-anbel-club
+
+Haz clic en "Add"
+
+========================================
+VARIABLE 4
+========================================
+En el campo "Name" copia esto:
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+
+En el campo "Value" copia esto:
+super-agent-anbel-club.firebasestorage.app
+
+Haz clic en "Add"
+
+========================================
+VARIABLE 5
+========================================
+En el campo "Name" copia esto:
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+
+En el campo "Value" copia esto:
+789541259111
+
+Haz clic en "Add"
+
+========================================
+VARIABLE 6
+========================================
+En el campo "Name" copia esto:
+NEXT_PUBLIC_FIREBASE_APP_ID
+
+En el campo "Value" copia esto:
+1:789541259111:web:c917c8d37e5ce542cad1c2
+
+Haz clic en "Add"
+
+========================================
+¡LISTO! Ahora haz clic en "Deploy"
+========================================
+

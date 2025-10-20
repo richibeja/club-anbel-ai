@@ -251,7 +251,7 @@ export default function GeneratorPage() {
       const even = pred.numbers.filter(n => n % 2 === 0).length;
       const odd = pred.numbers.length - even;
       
-      return `${index + 1},${numbers},${pred.bonus_number},${pred.draw_date || drawDate},${pred.lottery_type || lotteryType},${pred.score},${sum},${even},${odd}`;
+      return `${index + 1},${numbers},${pred.bonus_number},${drawDate},${lotteryType},${pred.score},${sum},${even},${odd}`;
     }).join('\n');
     
     return headers + rows;

@@ -128,24 +128,8 @@ export default function GeneratorPage() {
       // Intentar análisis local primero
       const localStats = LocalAnalyzer.analyzeHistoricalData(lotteryType);
       
-      // Convertir a formato compatible
-      const compatibleStats: LotteryStatistics = {
-        total_draws: localStats.totalDraws,
-        hot_numbers: localStats.hotNumbers.map(h => h.number),
-        cold_numbers: localStats.coldNumbers.map(c => c.number),
-        overdue_numbers: localStats.overdueNumbers.map(o => o.number),
-        pair_analysis: localStats.pairAnalysis.map(p => ({
-          pair: p.pair.split(',').map(Number),
-          frequency: p.frequency
-        })),
-        distribution: {
-          even_odd: localStats.distribution.evenOdd,
-          ranges: localStats.distribution.ranges,
-          consecutive_percentage: localStats.distribution.consecutive,
-          average_sum: localStats.distribution.averageSum,
-          optimal_sum_percentage: localStats.distribution.optimalSumCount
-        }
-      };
+      // Usar las estadísticas locales directamente
+      const compatibleStats = localStats;
       
       setStatistics(compatibleStats);
       setError(`✅ Análisis completado: ${localStats.totalDraws} sorteos analizados`);

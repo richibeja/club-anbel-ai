@@ -88,35 +88,6 @@ export class RealLotteryFetcher {
    */
   static async getRealBalotoData(): Promise<RealDrawData[]> {
     try {
-      // Nota: Baloto no tiene API pública, necesitaríamos web scraping
-      // Por ahora retornamos datos de ejemplo hasta implementar scraping
-      console.warn('Baloto: Implementar web scraping de página oficial');
-      
-      return [
-        {
-          fecha: '2025-01-15',
-          numeros: [5, 12, 23, 45, 67],
-          bonus: 15
-        },
-        {
-          fecha: '2025-01-12', 
-          numeros: [8, 19, 27, 34, 53],
-          bonus: 22
-        }
-      ];
-      
-    } catch (error) {
-      console.error('Error obteniendo datos reales Baloto:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Obtiene datos REALES de Baloto (Colombia)
-   * Fuente: Web scraping de página oficial
-   */
-  static async getRealBalotoData(): Promise<RealDrawData[]> {
-    try {
       // Obtener sorteos históricos usando el scraper
       const draws = await BalotoScraper.getHistoricalDraws(200);
       

@@ -654,7 +654,7 @@ export default function GeneratorPage() {
                             </span>
                           </td>
                           <td className="border border-gray-300 px-4 py-2 text-xs">
-                            🔥{pred.analysis.hot_numbers_count} 
+                            🔥{pred.analysis.hot_numbers_used} 
                             🎯{pred.analysis.pairs_matched}p
                             {pred.analysis.has_consecutive && ' 🔢'}
                           </td>

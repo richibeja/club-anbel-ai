@@ -168,26 +168,21 @@ export default function GeneratorPage() {
       
       // Convertir a formato compatible
       const compatiblePredictions: GeneratedPrediction[] = generated.map((pred, index) => ({
-        id: `pred_${Date.now()}_${index}`,
         numbers: pred.numbers,
-        bonus: Math.floor(Math.random() * 26) + 1, // Bonus aleatorio
-        draw_date: drawDate,
-        lottery_type: lotteryType,
+        bonus_number: Math.floor(Math.random() * 26) + 1, // Bonus aleatorio
         score: pred.score,
         analysis: {
-          sum_value: pred.sum,
-          even_count: pred.numbers.filter(n => n % 2 === 0).length,
-          odd_count: pred.numbers.filter(n => n % 2 === 1).length,
-          low_count: pred.numbers.filter(n => n <= 31).length,
-          mid_count: pred.numbers.filter(n => n > 31 && n <= 50).length,
-          high_count: pred.numbers.filter(n => n > 50).length,
-          consecutive_count: 0, // Calcular si hay consecutivos
-          hot_numbers_count: pred.numbers.filter(n => 
-            statistics.hot_numbers?.includes(n) || false
+          hot_numbers_used: pred.numbers.filter(n => 
+            statistics?.hot_numbers?.includes(n) || false
           ).length,
-          cold_numbers_count: pred.numbers.filter(n => 
-            statistics.cold_numbers?.includes(n) || false
-          ).length
+          cold_numbers_used: pred.numbers.filter(n => 
+            statistics?.cold_numbers?.includes(n) || false
+          ).length,
+          pairs_matched: 0,
+          odd_even_balance: `${pred.numbers.filter((n: number) => n % 2 === 1).length}-${pred.numbers.filter((n: number) => n % 2 === 0).length}`,
+          range_balance: 'balanced',
+          sum_value: pred.sum,
+          has_consecutive: false
         }
       }));
 

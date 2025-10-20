@@ -3,7 +3,7 @@
  * Para que el Bot de Telegram pueda acceder a ellas
  */
 
-import { db } from './database';
+import { db } from './firebase';
 import { collection, addDoc, query, where, getDocs, deleteDoc, updateDoc, doc } from 'firebase/firestore';
 import type { GeneratedPrediction } from './lottery-types';
 

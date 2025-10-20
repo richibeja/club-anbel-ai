@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Premios - Super Agent Anbel AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #15803d;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .results {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            border-left: 5px solid #22c55e;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .result-box h3 {
+            color: #15803d;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .amount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #15803d;
+            margin: 10px 0;
+        }
+
+        .detail {
+            font-size: 16px;
+            color: #166534;
+            margin: 8px 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .distribution-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .distribution-table th {
+            background: #15803d;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .distribution-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .distribution-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .copy-btn {
+            background: #8b6f47;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #6f5639;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .btn-calculate, .copy-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Calculadora de Premios</h1>
+        <p class="subtitle">Super Agent Anbel AI - Calculador de Repartición</p>
+
+        <div class="input-group">
+            <label for="prizeAmount">💵 Monto Total del Premio (USD)</label>
+            <input type="number" id="prizeAmount" placeholder="Ejemplo: 10000" min="0" step="0.01">
+        </div>
+
+        <div class="input-group">
+            <label for="taxRate">📊 Porcentaje de Impuestos (%)</label>
+            <input type="number" id="taxRate" value="24" min="0" max="50" step="0.1">
+            <p style="font-size: 14px; color: #666; margin-top: 5px;">
+                Federal: 24% | Estado: varía (0-8%)
+            </p>
+        </div>
+
+        <div class="input-group">
+            <label for="activeMembers">👥 Número de Socios Activos esa Semana</label>
+            <input type="number" id="activeMembers" placeholder="Ejemplo: 50" min="1">
+        </div>
+
+        <button class="btn-calculate" onclick="calculatePrize()">
+            🧮 Calcular Reparto
+        </button>
+
+        <div class="results" id="results">
+            <div class="result-box">
+                <h3>📋 Resumen del Premio</h3>
+                <div class="detail">Premio Bruto: <strong id="grossPrize">$0</strong></div>
+                <div class="detail">Impuestos (-<span id="taxPercent">24</span>%): <strong id="taxAmount">$0</strong></div>
+                <div class="amount" id="netPrize">$0</div>
+                <div class="detail" style="text-align: center;">Premio Neto (después de impuestos)</div>
+            </div>
+
+            <div class="result-box">
+                <h3>🏆 Reparto para el Ganador (60%)</h3>
+                <div class="amount" id="winnerAmount">$0</div>
+                <div class="detail" style="text-align: center;">El ganador se queda con esto</div>
+            </div>
+
+            <div class="result-box">
+                <h3>👥 Reparto para el Grupo (40%)</h3>
+                <div class="detail">Total para repartir: <strong id="groupTotal">$0</strong></div>
+                <div class="detail">Socios activos: <strong id="membersCount">0</strong></div>
+                <div class="amount" id="perMember">$0</div>
+                <div class="detail" style="text-align: center;">Por cada socio activo</div>
+            </div>
+
+            <div class="warning-box">
+                <h3 style="color: #f59e0b; margin-bottom: 10px;">⚠️ Instrucciones para el Ganador</h3>
+                <p style="margin-bottom: 10px;">Debes enviar <strong id="perMemberText">$0</strong> a cada uno de los <strong id="membersCountText">0</strong> socios activos.</p>
+                <p style="margin-bottom: 10px;"><strong>Total a enviar:</strong> <span id="totalToSend">$0</span></p>
+                <p><strong>Plazo máximo:</strong> 7 días desde que cobres el premio</p>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: #f3f4f6; border-radius: 10px;">
+                <h3 style="color: #5a452e; margin-bottom: 15px;">📝 Mensaje para copiar y enviar</h3>
+                <div id="messageTemplate" style="background: white; padding: 15px; border-radius: 8px; font-family: monospace; white-space: pre-wrap;"></div>
+                <button class="copy-btn" onclick="copyMessage()">📋 Copiar Mensaje</button>
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="copy-btn" onclick="window.print()" style="background: #15803d;">
+                    🖨️ Imprimir Cálculos
+                </button>
+                <button class="copy-btn" onclick="resetCalculator()" style="background: #dc2626; margin-left: 10px;">
+                    🔄 Nueva Calculación
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculatePrize() {
+            const prizeAmount = parseFloat(document.getElementById('prizeAmount').value);
+            const taxRate = parseFloat(document.getElementById('taxRate').value);
+            const activeMembers = parseInt(document.getElementById('activeMembers').value);
+
+            if (!prizeAmount || !taxRate || !activeMembers) {
+                alert('⚠️ Por favor completa todos los campos');
+                return;
+            }
+
+            if (prizeAmount < 5000) {
+                if (!confirm('⚠️ Este premio es menor a $5,000. Según las reglas, el ganador se queda con todo.\n\n¿Quieres calcular el reparto de todas formas?')) {
+                    return;
+                }
+            }
+
+            const taxAmount = prizeAmount * (taxRate / 100);
+            const netPrize = prizeAmount - taxAmount;
+            
+            const winnerAmount = netPrize * 0.60;
+            const groupTotal = netPrize * 0.40;
+            const perMember = groupTotal / activeMembers;
+
+            document.getElementById('grossPrize').textContent = '$' + prizeAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('taxPercent').textContent = taxRate;
+            document.getElementById('taxAmount').textContent = '$' + taxAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('netPrize').textContent = '$' + netPrize.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            
+            document.getElementById('winnerAmount').textContent = '$' + winnerAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            
+            document.getElementById('groupTotal').textContent = '$' + groupTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('membersCount').textContent = activeMembers;
+            document.getElementById('perMember').textContent = '$' + perMember.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            
+            document.getElementById('perMemberText').textContent = '$' + perMember.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('membersCountText').textContent = activeMembers;
+            document.getElementById('totalToSend').textContent = '$' + groupTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            const message = `🎊 PROCESO DE REPARTO - SUPER AGENT ANBEL AI
+
+Premio ganado: $${prizeAmount.toLocaleString('en-US', {minimumFractionDigits: 2})}
+Impuestos (${taxRate}%): -$${taxAmount.toLocaleString('en-US', {minimumFractionDigits: 2})}
+Premio neto: $${netPrize.toLocaleString('en-US', {minimumFractionDigits: 2})}
+
+DISTRIBUCIÓN:
+• 60% Ganador: $${winnerAmount.toLocaleString('en-US', {minimumFractionDigits: 2})}
+• 40% Grupo: $${groupTotal.toLocaleString('en-US', {minimumFractionDigits: 2})}
+
+SOCIOS ACTIVOS: ${activeMembers}
+MONTO POR SOCIO: $${perMember.toLocaleString('en-US', {minimumFractionDigits: 2})}
+
+El ganador debe enviar $${perMember.toLocaleString('en-US', {minimumFractionDigits: 2})} a cada uno de los ${activeMembers} socios.
+
+Plazo: 7 días máximo
+
+¡Felicidades a todos! 🍀`;
+
+            document.getElementById('messageTemplate').textContent = message;
+
+            document.getElementById('results').classList.add('show');
+            
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyMessage() {
+            const message = document.getElementById('messageTemplate').textContent;
+            navigator.clipboard.writeText(message).then(() => {
+                alert('✅ Mensaje copiado al portapapeles!\n\nPuedes pegarlo en el grupo de Facebook o Telegram.');
+            }).catch(() => {
+                alert('⚠️ No se pudo copiar automáticamente. Por favor copia el texto manualmente.');
+            });
+        }
+
+        function resetCalculator() {
+            document.getElementById('prizeAmount').value = '';
+            document.getElementById('taxRate').value = '24';
+            document.getElementById('activeMembers').value = '';
+            document.getElementById('results').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('prizeAmount').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('taxRate').focus();
+            }
+        });
+
+        document.getElementById('taxRate').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('activeMembers').focus();
+            }
+        });
+
+        document.getElementById('activeMembers').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculatePrize();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

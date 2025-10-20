@@ -1,0 +1,66 @@
+# ====================================
+# CONFIGURACIÓN DEL SISTEMA
+# ====================================
+# Copia este contenido a un archivo llamado .env.local
+
+# ====================================
+# FIREBASE CONFIGURATION
+# ====================================
+NEXT_PUBLIC_FIREBASE_API_KEY=tu-api-key-aqui
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=tu-proyecto.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu-proyecto-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu-proyecto.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef
+
+# Firebase Admin (para el bot)
+FIREBASE_ADMIN_PROJECT_ID=tu-proyecto-id
+FIREBASE_ADMIN_CLIENT_EMAIL=firebase-adminsdk@tu-proyecto.iam.gserviceaccount.com
+FIREBASE_ADMIN_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nTU_PRIVATE_KEY_AQUI\n-----END PRIVATE KEY-----\n"
+
+# ====================================
+# TELEGRAM BOT
+# ====================================
+TELEGRAM_BOT_TOKEN=1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+
+# ====================================
+# MÉTODOS DE PAGO DEL CLUB
+# ====================================
+
+# Zelle
+ZELLE_EMAIL=club@anbelai.com
+ZELLE_PHONE=+17867725681
+
+# Cash App (crear cuenta)
+CASH_APP_TAG=$AnbelAIClub
+
+# Venmo (crear cuenta)
+VENMO_USERNAME=@AnbelAI-Club
+
+# PayPal
+PAYPAL_EMAIL=club@anbelai.com
+
+# ====================================
+# INFORMACIÓN DE CONTACTO
+# ====================================
+WHATSAPP_MAIN=+17867725681
+WHATSAPP_ALT=+19295909116
+TELEGRAM_SUPPORT=+17867725681
+
+# ====================================
+# CONFIGURACIÓN DE PRECIOS
+# ====================================
+WEEKLY_PRICE=10
+MONTHLY_PRICE=40
+
+# ====================================
+# CONFIGURACIÓN DE PREMIOS
+# ====================================
+DISTRIBUTION_MODEL=equal_parts
+# Todos reciben partes iguales (Premio ÷ Número de Socios Activos)
+
+
+
+
+
+

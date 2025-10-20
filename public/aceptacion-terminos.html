@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aceptación de Términos - Super Agent Anbel AI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        h1 { color: #15803d; text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+        .important {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        input[type="text"]:focus, input[type="email"]:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+        .checkbox-group {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: start;
+            margin: 10px 0;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .link {
+            color: #22c55e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✍️ Aceptación de Términos</h1>
+        <p class="subtitle">Club Super Agent Anbel AI</p>
+
+        <div class="important">
+            <p style="text-align: center; font-weight: bold;">
+                ⚠️ Debe leer y aceptar los términos para continuar
+            </p>
+        </div>
+
+        <p style="text-align: center; margin: 20px 0;">
+            <a href="terminos-condiciones.html" target="_blank" class="link">
+                📄 Leer Términos y Condiciones Completos
+            </a>
+        </p>
+
+        <form id="acceptanceForm">
+            <div class="form-group">
+                <label for="fullName">Nombre Completo *</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="Juan Pérez García">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Electrónico *</label>
+                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="telegramId">Telegram Username *</label>
+                <input type="text" id="telegramId" name="telegramId" required placeholder="@tuusuario">
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 15px;">Declaro que: *</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="check1" required>
+                        <label for="check1" style="font-weight: normal;">
+                            He leído y comprendido completamente los Términos y Condiciones
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="check2" required>
+                        <label for="check2" style="font-weight: normal;">
+                            Entiendo que debo comprar mi propio ticket con mi propio dinero
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="check3" required>
+                        <label for="check3" style="font-weight: normal;">
+                            Acepto compartir premios grandes ($5,000+) según el acuerdo: 60% para mí, 40% para socios activos
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="check4" required>
+                        <label for="check4" style="font-weight: normal;">
+                            Acepto ser expulsado permanentemente si no cumplo con el acuerdo de premios
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="check5" required>
+                        <label for="check5" style="font-weight: normal;">
+                            Soy mayor de 18 años y juego bajo mi propia responsabilidad
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="check6" required>
+                        <label for="check6" style="font-weight: normal;">
+                            Entiendo que las predicciones NO garantizan ganancias
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">
+                ✅ Acepto los Términos y Condiciones
+            </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+            Fecha: <span id="currentDate"></span>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('es-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        document.getElementById('acceptanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                telegramId: document.getElementById('telegramId').value,
+                acceptanceDate: new Date().toISOString(),
+                allChecked: true
+            };
+
+            // Aquí se enviaría a la base de datos
+            console.log('Términos aceptados:', formData);
+            
+            alert('✅ Términos aceptados correctamente!\n\nAhora puedes proceder a registrarte en el bot de Telegram y realizar tu pago.');
+            
+            // Opcional: redirigir al bot de Telegram
+            // window.location.href = 'https://t.me/YOUR_BOT_USERNAME';
+        });
+
+        // Validar que todos los checkboxes estén marcados
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const submitBtn = document.getElementById('submitBtn');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                submitBtn.disabled = !allChecked;
+            });
+        });
+
+        // Inicialmente deshabilitar el botón
+        submitBtn.disabled = true;
+    </script>
+</body>
+</html>
+
+

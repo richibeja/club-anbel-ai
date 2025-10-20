@@ -1,0 +1,13 @@
+# Archivos que NO se suben a Vercel
+node_modules
+.next
+.env*.local
+*.log
+logs
+reports
+exports
+.DS_Store
+Thumbs.db
+*.json.backup
+super-agent-anbel-club-firebase-adminsdk-*.json
+

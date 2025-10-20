@@ -49,9 +49,9 @@ export async function syncPredictionsToFirebase(): Promise<SyncResult> {
       try {
         await addDoc(collection(db, 'predictions'), {
           numbers: prediction.numbers,
-          bonus: prediction.bonus,
-          draw_date: prediction.draw_date,
-          lottery_type: prediction.lottery_type,
+          powerball: prediction.bonus_number,
+          megaball: prediction.bonus_number,
+          lottery_type: 'Powerball',
           score: prediction.score,
           analysis: prediction.analysis,
           status: 'available', // Disponible para asignar

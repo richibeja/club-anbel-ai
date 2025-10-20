@@ -251,7 +251,7 @@ export default function GeneratorPage() {
       const even = pred.numbers.filter(n => n % 2 === 0).length;
       const odd = pred.numbers.length - even;
       
-      return `${index + 1},${numbers},${pred.bonus},${pred.draw_date},${pred.lottery_type},${pred.score},${sum},${even},${odd}`;
+      return `${index + 1},${numbers},${pred.bonus_number},${pred.draw_date || drawDate},${pred.lottery_type || lotteryType},${pred.score},${sum},${even},${odd}`;
     }).join('\n');
     
     return headers + rows;
@@ -641,7 +641,7 @@ export default function GeneratorPage() {
                           </td>
                           <td className="border border-gray-300 px-4 py-2">
                             <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">
-                              {pred.bonus}
+                              {pred.bonus_number}
                             </span>
                           </td>
                           <td className="border border-gray-300 px-4 py-2">

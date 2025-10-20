@@ -14,6 +14,7 @@ export default function AdminLayout({
     { href: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
     { href: '/admin/members', label: 'Members', icon: '👥' },
     { href: '/admin/directive', label: 'Directive', icon: '🏛️' },
+    { href: '/admin/referrals', label: 'Referrals', icon: '🎁' },
     { href: '/admin/generator', label: 'Generator', icon: '🎰' },
     { href: '/admin/predictions', label: 'Predictions', icon: '🎯' },
     { href: '/admin/tickets', label: 'Tickets', icon: '📸' },

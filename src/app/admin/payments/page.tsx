@@ -31,6 +31,7 @@ export default function PaymentsPage() {
       
       const member = await Database.getMemberByTelegramId(memberId);
       if (member) {
+        const isFirstPayment = member.total_paid === 0;
         const newTotal = member.total_paid + amount;
         const nextDue = new Date();
         nextDue.setDate(nextDue.getDate() + 7);
@@ -41,6 +42,16 @@ export default function PaymentsPage() {
           last_payment_date: new Date().toISOString(),
           next_payment_due: nextDue.toISOString(),
         });
+        
+        // TODO: Si es el primer pago Y fue referido, actualizar beneficios del referidor
+        // La función updateReferrerBenefits está en telegram-bot/bot.js
+        // Cuando el bot esté corriendo, se actualiza automáticamente
+        if (isFirstPayment && member.referred_by) {
+          console.log(`⚠️ IMPORTANTE: Este es el primer pago de ${member.first_name}.`);
+          console.log(`Fue referido por: ${member.referred_by_code}`);
+          console.log(`El referidor debe recibir sus beneficios.`);
+          console.log(`Asegúrate de que el bot esté corriendo para actualización automática.`);
+        }
       }
 
       alert('Payment verified successfully!');

@@ -14,6 +14,15 @@ export interface Member {
   role_start_date?: string;
   profile_photo_url?: string;
   bio?: string;
+  // Sistema de Referidos
+  referral_code?: string; // Código único: ANBEL-12345
+  referred_by?: string; // ID del miembro que lo refirió
+  referred_by_code?: string; // Código usado al registrarse
+  referrals_count?: number; // Total de referidos activos
+  referrals?: string[]; // IDs de miembros referidos
+  free_weeks_earned?: number; // Semanas gratis acumuladas
+  free_weeks_used?: number; // Semanas gratis ya usadas
+  referral_discount_applied?: boolean; // Si usó descuento de nuevo miembro
   joined_date: string;
   last_payment_date?: string;
   next_payment_due?: string;

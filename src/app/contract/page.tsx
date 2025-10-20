@@ -285,6 +285,62 @@ export default function ContractPage() {
             </div>
           </div>
 
+          {/* Section: Programa de Referidos */}
+          <div className="mb-8 bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              🎁 Programa de Referidos
+            </h2>
+            
+            <div className="bg-white p-5 rounded-lg shadow-md mb-4">
+              <p className="font-bold text-purple-900 mb-3 text-center">
+                ¡Gana beneficios por invitar amigos al club!
+              </p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-blue-900">1</div>
+                  <div className="text-xs text-blue-700">referido</div>
+                  <div className="text-sm font-semibold text-green-700 mt-2">1 semana gratis</div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-purple-900">3</div>
+                  <div className="text-xs text-purple-700">referidos</div>
+                  <div className="text-sm font-semibold text-green-700 mt-2">1 mes gratis</div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-pink-50 to-pink-100 p-3 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-pink-900">5</div>
+                  <div className="text-xs text-pink-700">referidos</div>
+                  <div className="text-sm font-semibold text-green-700 mt-2">2 meses gratis</div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-3 rounded-lg text-center border-2 border-yellow-400">
+                  <div className="text-2xl font-bold text-yellow-900">10+</div>
+                  <div className="text-xs text-yellow-700">referidos</div>
+                  <div className="text-sm font-semibold text-green-700 mt-2">3 meses gratis</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-green-100 border-l-4 border-green-500 p-4 rounded-lg mb-3">
+              <p className="font-bold text-green-900 mb-2">✨ Tu amigo también gana:</p>
+              <p className="text-sm text-gray-700">
+                Quien use tu código de referido recibe <strong>$5 de descuento</strong> en su primer pago.
+              </p>
+            </div>
+
+            <div className="text-sm text-gray-700 bg-white p-3 rounded">
+              <p className="mb-2"><strong>¿Cómo funciona?</strong></p>
+              <div className="space-y-1 text-sm">
+                <p>1. Obtienes tu código único (ej: ANBEL-12345)</p>
+                <p>2. Compartes con amigos</p>
+                <p>3. Ellos se registran con tu código</p>
+                <p>4. Cuando paguen, acumulas beneficios automáticamente</p>
+              </div>
+            </div>
+          </div>
+
           {/* Section: Predicciones Disclaimer */}
           <div className="mb-8 bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
             <h2 className="text-xl font-bold text-gray-900 mb-3">

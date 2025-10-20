@@ -1,0 +1,164 @@
+==============================================
+VARIABLES DE ENTORNO PARA VERCEL
+==============================================
+
+Copia estas variables una por una en Vercel:
+Panel → Environment Variables → Add
+
+==============================================
+1. FIREBASE FRONTEND
+==============================================
+
+Name: NEXT_PUBLIC_FIREBASE_API_KEY
+Value: AIzaSyBISdz4WHVhMHJ60bskjc7igk9Ea1mkxMI
+
+---
+
+Name: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+Value: super-agent-anbel-club.firebaseapp.com
+
+---
+
+Name: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+Value: super-agent-anbel-club
+
+---
+
+Name: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+Value: super-agent-anbel-club.firebasestorage.app
+
+---
+
+Name: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+Value: 789541259111
+
+---
+
+Name: NEXT_PUBLIC_FIREBASE_APP_ID
+Value: 1:789541259111:web:c917c8d37e5ce542cad1c2
+
+==============================================
+2. FIREBASE ADMIN (Para Bot)
+==============================================
+
+Name: FIREBASE_ADMIN_PROJECT_ID
+Value: super-agent-anbel-club
+
+---
+
+Name: FIREBASE_ADMIN_CLIENT_EMAIL
+Value: firebase-adminsdk-fbsvc@super-agent-anbel-club.iam.gserviceaccount.com
+
+---
+
+Name: FIREBASE_ADMIN_PRIVATE_KEY
+Value: -----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDKXRr1eV+xsoli
+SoEy7q2WssQpsbBm7MqjMkKxlLef865i3OunLBxcA7sECUp2V8dU6tCZ8+Xx/WWG
+QflRUXwg1LdvwZMaOL//qEk2gx7qoLw5kw1lVxbF4V0TGYLMzTUBV8VDOGD6ctdg
+Go/ADWqok8+jlJaqXQFk5oBZLC6rtYTxbaha0NEASsLN4w5GEFgQKqf5IkXq146p
+AkO8ZRHeoXUzf5ok9WjuQaFdxxHVGcVgjat4yuyFb3utsuodO/ILNm1SP3A8YbTk
+8M2NLM4fTGo4ztAAP6QGJ9VZRTGbKi5q6Ix4HCP2vR+zg+moTjRGOpOvRlMPFlMU
+ceMn0SFHAgMBAAECggEAWtG7SiTdTi5O2xaN8nJM5L+5Ku8suJyX+vMRHIqeeIJQ
+Jt14Q1AYMDGaap7S1NbjRliWIynjbp3nRQBx6M11tHRTGSxanR+QB6iapwTkyK83
+mm1FS1BxD4DrmSlPWyPToJUoGlmAqJYG1AJHto0u65Zez07d6XqRKBwMyTh7f6LM
+wcuuCtW8hqO0q0srMOUjQjAqmpUUvzl3C7owj/zwQUDCe/nxpxv5VMe6+dOzsgN3
+hN6w0A3xde8oIRK+M+bbyJyQAGxBpzXMQlLGOH+Yy6OhwSb+5/PSothwQ8QSc9iH
+DtrnPyLnWXtnyJnFwJxF7S0p6s/WIiiSLTH66gqZVQKBgQDncFMVfsM3ZYk/qtrK
+AZzG1sGgX9eDIyfPYxGy3nzIcUmWORFGq7PLBXE4Xr0bT6acARWDRahFZQ+QBd6V
+0JQMi6jS371oJFR78PPgkaMr7zEGh3r/Gzq15jxEa3Ala9Lgwivl03vYoE19IDjD
+ofW0vha15vP/slisOc0TWnA7BQKBgQDf1uAy5VnG1+/ns0pKEn9ggaBPKLzKZKct
+Cg4+RmwhLd3OnhAMx/RupUtB6DUU0Tk7ue0K+qDQZGTLSd+JkLkmbcFXipxeXJ26
+L4+Mm4lYAOcUo1sMX1KkIMXConIhrfxPfOno5D2kMg+NO8+0PcMwViYuRD+I3mqs
++q5ZoX1U2wKBgCC8fKQPuCE/1XgR/LySGdDuU5kRtXQxJtJo2voICnJ3w8bh75Wl
+d9sBvBATJoCUdaafaKGW2sRmFRt0GRXr2OUlZA3f4/S1HtYhMP3U29W9EZww0a7/
+9QABvwiWgdhpNfzgukDZ9yyfEBbg1eamJBEayi+UqXLDkVNbIazZIALZAoGBANRM
+aowbN1D+0Y1CYT1r2d/gUfmCO70CRgTTurqZ9EhrxioHhFV6+HxQzdYOtPmvjsb1
+CrwVBZ1g+rBMunUxDEpEYtHyp2hgE0DZhx7nDhanlIPgg6RybGE6rBZ0GCeVau7B
+HOFESKqIyHM9vTvIMG6R5tiO5mub+DVj9SURo1ttAoGATqmXTxI2FsoMuTZ5wNyr
+RTWxp50QCrZCn+WBtGlcU6mk/JOjUkAneBMgIfOEq9JJCEHdh9qCI84aslTXUr4x
+HGvVaseFfZ3zOhb4J7dhyzaWwlnLDcPUdeAB8Zj1dGN4QqPZWrwezJRt7VCqJu4V
+Do6tO06TTSdvMOVzyT6oygM=
+-----END PRIVATE KEY-----
+
+⚠️ IMPORTANTE: Copia desde "-----BEGIN" hasta "-----END" TODO JUNTO
+
+==============================================
+3. CONTACTOS Y CONFIGURACIÓN
+==============================================
+
+Name: WHATSAPP_MAIN
+Value: +573144467389
+
+---
+
+Name: WHATSAPP_ALT
+Value: +573144467389
+
+---
+
+Name: TELEGRAM_SUPPORT
+Value: +17867725681
+
+---
+
+Name: PAYPAL_EMAIL
+Value: richardbejarano52@gmail.com
+
+---
+
+Name: ZELLE_PHONE
+Value: +573144467389
+
+---
+
+Name: ZELLE_EMAIL
+Value: richardbejarano52@gmail.com
+
+---
+
+Name: CASH_APP_TAG
+Value: $AnbelAIClub
+
+---
+
+Name: VENMO_USERNAME
+Value: @AnbelAI-Club
+
+---
+
+Name: WEEKLY_PRICE
+Value: 10
+
+---
+
+Name: MONTHLY_PRICE
+Value: 40
+
+---
+
+Name: DISTRIBUTION_MODEL
+Value: equal_parts
+
+==============================================
+4. TOKEN DEL BOT DE TELEGRAM (Opcional ahora)
+==============================================
+
+Name: TELEGRAM_BOT_TOKEN
+Value: [Obten el token de @BotFather en Telegram]
+
+⚠️ Este puedes agregarlo después cuando configures el bot
+
+==============================================
+TOTAL: 18 variables de entorno
+==============================================
+
+PASOS EN VERCEL:
+1. Ve a tu proyecto en Vercel
+2. Settings → Environment Variables
+3. Copia cada "Name" y "Value" de arriba
+4. Haz clic en "Add" para cada una
+5. Cuando termines, haz clic en "Deploy"
+
+==============================================
+

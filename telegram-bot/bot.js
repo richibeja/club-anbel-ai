@@ -85,12 +85,103 @@ bot.start(async (ctx) => {
   );
 });
 
+function generateReferralCode() {
+  const prefix = 'ANBEL';
+  const random = Math.random().toString(36).substring(2, 7).toUpperCase();
+  return `${prefix}-${random}`;
+}
+
+async function updateReferrerBenefits(newMemberId) {
+  try {
+    // Obtener el nuevo miembro
+    const newMemberDoc = await db.collection('members').doc(newMemberId).get();
+    if (!newMemberDoc.exists) return;
+    
+    const newMember = newMemberDoc.data();
+    
+    // Si no fue referido por nadie, no hacer nada
+    if (!newMember.referred_by) return;
+    
+    // Obtener el referidor
+    const referrerDoc = await db.collection('members').doc(newMember.referred_by).get();
+    if (!referrerDoc.exists) return;
+    
+    const referrer = referrerDoc.data();
+    
+    // Actualizar contador de referidos del referidor
+    const newCount = (referrer.referrals_count || 0) + 1;
+    const referrals = referrer.referrals || [];
+    referrals.push(newMemberId);
+    
+    // Calcular semanas gratis ganadas según nuevos niveles
+    let newWeeksEarned = 0;
+    if (newCount === 1) newWeeksEarned = 1;      // 1 semana por 1er referido
+    else if (newCount === 3) newWeeksEarned = 4; // 1 mes por llegar a 3
+    else if (newCount === 5) newWeeksEarned = 8; // 2 meses por llegar a 5
+    else if (newCount === 10) newWeeksEarned = 12; // 3 meses por llegar a 10
+    
+    const totalEarned = (referrer.free_weeks_earned || 0) + newWeeksEarned;
+    
+    // Actualizar referidor
+    await db.collection('members').doc(newMember.referred_by).update({
+      referrals_count: newCount,
+      referrals: referrals,
+      free_weeks_earned: totalEarned,
+      updated_at: new Date().toISOString(),
+    });
+    
+    // Notificar al referidor si ganó beneficios
+    if (newWeeksEarned > 0) {
+      const referrerTelegramId = referrer.telegram_id;
+      let benefit = '';
+      if (newWeeksEarned === 1) benefit = '1 semana gratis';
+      else if (newWeeksEarned === 4) benefit = '1 mes gratis';
+      else if (newWeeksEarned === 8) benefit = '2 meses gratis';
+      else if (newWeeksEarned === 12) benefit = '3 meses gratis';
+      
+      await bot.telegram.sendMessage(
+        referrerTelegramId,
+        `🎉 *¡Felicidades!*\n\n` +
+        `Tu referido ${newMember.first_name} acaba de pagar.\n\n` +
+        `🎁 *Has ganado: ${benefit}!*\n\n` +
+        `Total referidos activos: ${newCount}\n` +
+        `Semanas gratis acumuladas: ${totalEarned}\n\n` +
+        `Usa /misreferidos para ver más detalles.`,
+        { parse_mode: 'Markdown' }
+      );
+    }
+    
+    console.log(`✅ Referrer ${newMember.referred_by} updated: ${newCount} referrals, ${totalEarned} free weeks`);
+  } catch (error) {
+    console.error('Error updating referrer benefits:', error);
+  }
+}
+
 bot.command('register', async (ctx) => {
   const telegram_id = ctx.from.id.toString();
   const existing = await getMemberByTelegramId(telegram_id);
   
   if (existing) {
     return ctx.reply('✅ ¡Ya estás registrado!');
+  }
+  
+  // Verificar si usó código de referido
+  const args = ctx.message.text.split(' ');
+  const referralCode = args[1]?.toUpperCase(); // /register ANBEL-12345
+  let referredBy = null;
+  let hasValidReferral = false;
+  
+  if (referralCode && referralCode.startsWith('ANBEL-')) {
+    // Buscar el miembro que tiene este código
+    const referrerSnapshot = await db.collection('members')
+      .where('referral_code', '==', referralCode)
+      .limit(1)
+      .get();
+    
+    if (!referrerSnapshot.empty) {
+      referredBy = referrerSnapshot.docs[0].id;
+      hasValidReferral = true;
+    }
   }
   
   const newMember = {
@@ -100,6 +191,14 @@ bot.command('register', async (ctx) => {
     last_name: ctx.from.last_name || '',
     membership_status: 'inactive',
     membership_type: 'weekly',
+    referral_code: generateReferralCode(), // Código único para este miembro
+    referred_by: referredBy,
+    referred_by_code: hasValidReferral ? referralCode : null,
+    referrals_count: 0,
+    referrals: [],
+    free_weeks_earned: 0,
+    free_weeks_used: 0,
+    referral_discount_applied: false,
     joined_date: new Date().toISOString(),
     total_paid: 0,
     created_at: new Date().toISOString(),
@@ -109,10 +208,14 @@ bot.command('register', async (ctx) => {
   const docRef = await db.collection('members').add(newMember);
   ctx.session = { ...ctx.session, registering: true, member_id: docRef.id };
   
-  return ctx.reply(
-    `✅ *¡Registro Exitoso!*\n\n` +
-    `¡Bienvenido ${ctx.from.first_name}!\n\n` +
-    `🎯 Para completar tu registro, elige tu método de pago preferido:\n\n` +
+  let message = `✅ *¡Registro Exitoso!*\n\n¡Bienvenido ${ctx.from.first_name}!\n\n`;
+  
+  if (hasValidReferral) {
+    message += `🎁 *¡Usaste un código de referido!*\n` +
+               `Recibirás $5 de descuento en tu primer pago.\n\n`;
+  }
+  
+  message += `🎯 Para completar tu registro, elige tu método de pago preferido:\n\n` +
     `1️⃣ Zelle (recomendado - sin comisión)\n` +
     `2️⃣ Cash App (fácil y rápido)\n` +
     `3️⃣ Venmo (popular entre jóvenes)\n` +
@@ -120,9 +223,9 @@ bot.command('register', async (ctx) => {
     `5️⃣ Tarjeta Prepagada (para efectivo)\n` +
     `6️⃣ Remesas (si estás fuera de USA)\n\n` +
     `Responde con el *número* de tu método preferido (ejemplo: 1)\n\n` +
-    `💡 Después te explicaré cómo pagar fácilmente.`,
-    { parse_mode: 'Markdown' }
-  );
+    `💡 Después te explicaré cómo pagar fácilmente.`;
+  
+  return ctx.reply(message, { parse_mode: 'Markdown' });
 });
 
 bot.command('numbers', async (ctx) => {
@@ -314,15 +417,131 @@ bot.command('status', async (ctx) => {
   );
 });
 
+// Comando: Mi Código de Referido
+bot.command('micodigo', async (ctx) => {
+  const telegram_id = ctx.from.id.toString();
+  const member = await getMemberByTelegramId(telegram_id);
+  
+  if (!member) {
+    return ctx.reply('❌ No estás registrado. Usa /register primero.');
+  }
+  
+  const code = member.referral_code || 'No asignado';
+  
+  return ctx.reply(
+    `🎁 *TU CÓDIGO DE REFERIDO*\n\n` +
+    `📋 Código: \`${code}\`\n\n` +
+    `💰 *Gana beneficios por cada amigo que traigas:*\n` +
+    `• 1 referido → 1 semana gratis ($10)\n` +
+    `• 3 referidos → 1 mes gratis ($40)\n` +
+    `• 5 referidos → 2 meses gratis ($80)\n` +
+    `• 10+ referidos → 3 meses gratis ($120)\n\n` +
+    `✨ *Tu amigo también gana:*\n` +
+    `$5 de descuento en su primer pago\n\n` +
+    `📱 *Comparte este mensaje:*\n\n` +
+    `_"🎰 Únete al Club Anbel AI!_\n` +
+    `_Sistema de loterías con IA_\n` +
+    `_$10/semana o $40/mes_\n\n` +
+    `_Usa mi código: ${code}_\n` +
+    `_¡Recibes $5 de descuento!_\n\n` +
+    `_WhatsApp: +573144467389"_\n\n` +
+    `Usa /misreferidos para ver tus referidos actuales.`,
+    { parse_mode: 'Markdown' }
+  );
+});
+
+// Comando: Mis Referidos
+bot.command('misreferidos', async (ctx) => {
+  const telegram_id = ctx.from.id.toString();
+  const member = await getMemberByTelegramId(telegram_id);
+  
+  if (!member) {
+    return ctx.reply('❌ No estás registrado. Usa /register primero.');
+  }
+  
+  const count = member.referrals_count || 0;
+  const earned = member.free_weeks_earned || 0;
+  const used = member.free_weeks_used || 0;
+  const available = earned - used;
+  
+  let level = '👤 Sin referidos';
+  if (count >= 10) level = '👑 Embajador';
+  else if (count >= 5) level = '🌟 Líder';
+  else if (count >= 3) level = '⭐ Activo';
+  else if (count >= 1) level = '✨ Iniciado';
+  
+  let progress = '';
+  if (count === 0) progress = '▱▱▱▱ (0/1)';
+  else if (count < 3) progress = `▰${'▱'.repeat(3)} (${count}/3)`;
+  else if (count < 5) progress = `▰▰${'▱'.repeat(2)} (${count}/5)`;
+  else if (count < 10) progress = `▰▰▰▱ (${count}/10)`;
+  else progress = `▰▰▰▰ (${count}/10+) ¡Máximo!`;
+  
+  let nextLevel = '';
+  if (count === 0) nextLevel = 'Refiere 1 para ganar 1 semana gratis';
+  else if (count < 3) nextLevel = `Refiere ${3 - count} más para 1 mes gratis`;
+  else if (count < 5) nextLevel = `Refiere ${5 - count} más para 2 meses gratis`;
+  else if (count < 10) nextLevel = `Refiere ${10 - count} más para 3 meses gratis`;
+  else nextLevel = '¡Nivel máximo alcanzado! 🎉';
+  
+  let message = `👥 *TUS REFERIDOS*\n\n` +
+    `📊 *Total referidos activos:* ${count}\n` +
+    `${level}\n\n` +
+    `📈 *Progreso:*\n${progress}\n\n` +
+    `🎯 *Próximo nivel:*\n${nextLevel}\n\n` +
+    `💰 *Beneficios acumulados:*\n` +
+    `• Semanas gratis ganadas: ${earned}\n` +
+    `• Semanas gratis usadas: ${used}\n` +
+    `• *Disponibles:* ${available} semanas 🎉\n`;
+  
+  if (available > 0) {
+    const savedMoney = available * 10;
+    message += `\n💵 Has ahorrado: $${savedMoney} USD\n`;
+  }
+  
+  message += `\n📋 *Tu código:* \`${member.referral_code}\`\n` +
+             `Usa /micodigo para compartirlo.`;
+  
+  return ctx.reply(message, { parse_mode: 'Markdown' });
+});
+
+// Comando: Info del Programa de Referidos
+bot.command('referir', async (ctx) => {
+  return ctx.reply(
+    `🎁 *PROGRAMA DE REFERIDOS*\n\n` +
+    `💰 *Gana beneficios por cada amigo que traigas:*\n\n` +
+    `1️⃣ 1 referido → 1 semana gratis ($10)\n` +
+    `2️⃣ 3 referidos → 1 mes gratis ($40)\n` +
+    `3️⃣ 5 referidos → 2 meses gratis ($80)\n` +
+    `4️⃣ 10+ referidos → 3 meses gratis ($120) + Badge\n\n` +
+    `✨ *Tu amigo también gana:*\n` +
+    `$5 de descuento en su primer pago\n\n` +
+    `📋 *Cómo funciona:*\n` +
+    `1. Obtén tu código con /micodigo\n` +
+    `2. Comparte con amigos\n` +
+    `3. Ellos se registran: /register TU-CODIGO\n` +
+    `4. Cuando paguen, ¡acumulas beneficios!\n\n` +
+    `📊 Ver tus referidos: /misreferidos\n\n` +
+    `🚀 ¡Empieza a referir y ahorra dinero!`,
+    { parse_mode: 'Markdown' }
+  );
+});
+
 bot.command('help', async (ctx) => {
   return ctx.reply(
     `📚 *Comandos Disponibles*\n\n` +
+    `*Principal:*\n` +
     `/start - Iniciar el bot\n` +
     `/register - Registrarte como socio\n` +
     `/numbers - Obtener tus predicciones\n` +
     `/upload - Subir foto del ticket\n` +
     `/payment - Información de pago\n` +
-    `/status - Ver tu estado\n` +
+    `/status - Ver tu estado\n\n` +
+    `*Referidos:* 🎁\n` +
+    `/micodigo - Ver tu código de referido\n` +
+    `/misreferidos - Ver tus referidos y beneficios\n` +
+    `/referir - Info del programa de referidos\n\n` +
+    `*Soporte:*\n` +
     `/soporte - Información de contacto\n` +
     `/help - Mostrar este mensaje\n\n` +
     `💡 *Guía Rápida:*\n` +

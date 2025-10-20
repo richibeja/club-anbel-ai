@@ -290,7 +290,58 @@ Este contrato puede ser modificado:
 
 ---
 
-### 1️⃣5️⃣ ACEPTACIÓN DEL CONTRATO
+### 1️⃣5️⃣ PROGRAMA DE REFERIDOS
+
+**EL CLUB** ofrece un sistema de incentivos por referir nuevos miembros:
+
+🎁 **BENEFICIOS POR REFERIR:**
+
+| Referidos Activos | Beneficio |
+|-------------------|-----------|
+| 1 persona | 1 semana gratis ($10) |
+| 3 personas | 1 mes gratis ($40) |
+| 5 personas | 2 meses gratis ($80) |
+| 10+ personas | 3 meses gratis ($120) + Badge especial |
+
+**Referido Activo** = Persona que se registró con tu código Y pagó su primera membresía.
+
+#### **¿Cómo funciona?**
+
+1. **Obtén tu código único** (ejemplo: ANBEL-12345)
+2. **Comparte** con amigos y familiares
+3. **Ellos se registran** usando tu código
+4. **Cuando paguen**, acumulas beneficios
+
+#### **Beneficio para nuevos miembros:**
+
+Quien se registre con un código de referido recibe:
+- ✅ **$5 de descuento** en su primer pago
+- ✅ Ayuda a un miembro actual
+- ✅ Se une a una comunidad activa
+
+#### **Reglas:**
+
+✅ **Válido:**
+- Referir a familiares, amigos, conocidos
+- Compartir en redes sociales genuinamente
+
+❌ **No válido:**
+- Crear cuentas falsas
+- Referirse a sí mismo
+- Spam o promoción engañosa
+
+**Violación = Pérdida de beneficios acumulados + posible suspensión**
+
+#### **Acumulación:**
+
+Los beneficios se acumulan automáticamente y se aplican a tus próximos pagos:
+- Semanas gratis se descuentan de pagos futuros
+- No son reembolsables en efectivo
+- Se pierden si cancelas tu membresía
+
+---
+
+### 1️⃣6️⃣ ACEPTACIÓN DEL CONTRATO
 
 Al unirse al **Club Anbel AI**, **EL MIEMBRO** declara:
 
